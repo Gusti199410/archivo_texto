@@ -53,17 +53,15 @@ void crear_Archivo_Texto_longitud_fija(const char *archivo)
     size_t ce=sizeof(vectorEmpleado)/sizeof(vectorEmpleado[0]);
     for(size_t i=0;i<ce;i++)
     {
-        fprintf(fp,"%08ld %-49s %c %02d/%02d/%04d %9.2f\n",
+        fprintf(fp,"%07ld%-49s%c%02d/%02d/%04d%9.2f\n",
                 vectorEmpleado[i].dni,
-                sizeof(vectorEmpleado[i].apyn)-1,
-                sizeof(vectorEmpleado[i].apyn)-1,
+                vectorEmpleado[i].apyn,
                 vectorEmpleado[i].categoria,
                 vectorEmpleado[i].fecIngreso.dia,
                 vectorEmpleado[i].fecIngreso.mes,
                 vectorEmpleado[i].fecIngreso.anio,
                 vectorEmpleado[i].sueldo);
     }
-
 
     fclose(fp);
 }
