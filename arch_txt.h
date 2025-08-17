@@ -6,6 +6,8 @@
 #include<string.h>
 
 
+void crear_Archivo_Texto(const char *archivo);
+
 
 
 #endif // ARCH_TXT_H_INCLUDED
