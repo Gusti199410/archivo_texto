@@ -21,7 +21,7 @@ void crear_Archivo_Texto(const char *archivo)
 
     for(int i=0;i<ce;i++)
     {
-        fprintf(fp,"%ld;%s;%c;%d/%d/%d;%.2f\n",
+        fprintf(fp,"LA LISTA ES: \n%ld;%s;%c;%d/%d/%d;%.2f\n",
 
                 vectorEmpleado[i].dni,
                 vectorEmpleado[i].apyn,

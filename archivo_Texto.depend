@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1755390389 source:c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\main.c
+1755397909 source:c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\main.c
 	"arch_txt.h"
 
-1755391926 c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\arch_txt.h
+1755397368 c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\arch_txt.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
