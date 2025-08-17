@@ -53,9 +53,5 @@ bool convertir_archtxt_a_archibin(const char *archivo_txt,const char *archivo_bi
     }
 
 
-
-
-
-
     return true;
 }
