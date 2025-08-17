@@ -10,7 +10,7 @@ typedef struct
 
     int dia;
     int mes;
-    int año;
+    int anio;
 
 }tFecha;
 
@@ -22,7 +22,7 @@ typedef struct
     tFecha fecIngreso;
     float sueldo;
 
-}tEmpleado
+}tEmpleado;
 
 void crear_Archivo_Texto(const char *archivo);
 

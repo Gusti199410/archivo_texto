@@ -1,5 +1,5 @@
 #include"arch_txt.h"
-#define archi_texto "archivo.txt"
+
 #define archi_bin "archivo.bin"
 
 void crear_Archivo_Texto(const char *archivo)
@@ -15,25 +15,27 @@ void crear_Archivo_Texto(const char *archivo)
                                 {3333333,"Persona Tres",   'B',{1,5,2023},33000.3F},
                                 {5555555,"Persona Cinco",  'A',{1,5,2005},55000.5F},
                                 {1111111,"Persona Cuatro", 'C',{1,1,2001},111000.F}
+                                };
 
-    size_t ce=sizeof(vectorEmpleado)/sizeof(vectorEmpleado[0]);
-    size_t tam_Elem=sizeof(tEmpleado);
+    size_t ce = sizeof(vectorEmpleado)/sizeof(tEmpleado);
 
     for(int i=0;i<ce;i++)
     {
-        fprintf(fp,"%ld;%s;%c;%d/%d/%d;%.2f\n";
+        fprintf(fp,"%ld;%s;%c;%d/%d/%d;%.2f\n",
 
                 vectorEmpleado[i].dni,
                 vectorEmpleado[i].apyn,
                 vectorEmpleado[i].categoria,
-                vectorEmpleado[i].tFecha.dia,
-                vectorEmpleado[i].tFecha.mes,
-                vectorEmpleado[i].tFecha.año,
+                vectorEmpleado[i].fecIngreso.dia,
+                vectorEmpleado[i].fecIngreso.mes,
+                vectorEmpleado[i].fecIngreso.anio,
                 vectorEmpleado[i].sueldo);
 
     }
 
     fclose(fp);
+
     return 0;
+
 }
 
