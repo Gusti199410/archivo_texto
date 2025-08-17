@@ -34,8 +34,28 @@ void crear_Archivo_Texto(const char *archivo)
     }
 
     fclose(fp);
-
-    return 0;
-
 }
 
+bool convertir_archtxt_a_archibin(const char *archivo_txt,const char *archivo_bin)
+{
+    FILE *ft=fopen(archivo_txt,"rt");
+    if(!ft)
+    {
+        printf("Error abrir el archivo texto");
+        return false;
+    }
+    FILE * fb=fopen(archivo_bin,"wb");
+    if(!fb)
+    {
+        printf("Error al abrir el archivo binario");
+        fclose(ft);
+        return false;
+    }
+
+
+
+
+
+
+    return true;
+}
