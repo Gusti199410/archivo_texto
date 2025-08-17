@@ -53,7 +53,7 @@ void crear_Archivo_Texto_longitud_fija(const char *archivo)
     size_t ce=sizeof(vectorEmpleado)/sizeof(vectorEmpleado[0]);
     for(size_t i=0;i<ce;i++)
     {
-        fprintf(fp,"%07ld%-49s%c%02d/%02d/%04d%9.2f\n",
+        fprintf(fp,"%08ld%-29s%c%02d/%02d/%04d%10f\n",
                 vectorEmpleado[i].dni,
                 vectorEmpleado[i].apyn,
                 vectorEmpleado[i].categoria,
@@ -81,9 +81,35 @@ bool convertir_archtxt_a_archibin(const char *archivo_txt,const char *archivo_bi
         fclose(ft);
         return false;
     }
-    tEmpleado emp;
-    fgets(&emp,sizeof(tEmpleado)-1,ft);
-
 
     return true;
+}
+
+int leer_Archtxt_variable(const char *archivo,tEmpleado *emp)
+{
+
+    FILE *fp=fopen(archivo,"rt");
+    if(!fp)
+    {
+        printf("Error al leer archivo");
+        exit(1);
+    }
+    char buffer[100];
+    if(!fgets(buffer,sizeof(buffer),fp))
+    {
+        return 0;
+    }
+    sscanf(buffer,"%8ld%30s%c%2d%2d%4d%10f",
+           &emp->dni,
+           emp->apyn,
+           &emp->categoria,
+           &emp->fecIngreso.dia,
+           &emp->fecIngreso.mes,
+           &emp->fecIngreso.anio,
+           &emp->sueldo);
+
+    emp->apyn[30]='\0';
+    fclose(fp);
+    return 1;
+
 }
