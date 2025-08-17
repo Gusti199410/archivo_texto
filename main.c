@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
+#include"arch_txt.h"
 int main()
 {
     printf("Hello world!\n");
