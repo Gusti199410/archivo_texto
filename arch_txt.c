@@ -164,6 +164,5 @@ void probar_fprintf(void)
                                                     emp.fecIngreso.anio,
                                                     emp.sueldo);
 
-
-
 }
+
