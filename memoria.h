@@ -11,5 +11,7 @@ typedef struct
 }tMemoria;
 
 bool crear_memoria(tMemoria *vec,size_t tam,size_t tam_Elem);
+bool asignar_memoria(tMemoria *vec,size_t tam_Elem);
+bool destruir_memoria(tMemoria *vec);
 
 #endif // MEMORIA_H_INCLUDED

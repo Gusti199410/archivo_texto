@@ -85,19 +85,19 @@ bool convertir_archtxt_a_archibin(const char *archivo_txt,const char *archivo_bi
     return true;
 }
 
-int leer_Archtxt_variable(const char *archivo,tEmpleado *emp)
+bool cargar_Archtxt_variable(const char *archivo,tEmpleado *emp)
 {
 
     FILE *fp=fopen(archivo,"rt");
     if(!fp)
     {
         printf("Error al leer archivo");
-        exit(1);
+        return false;
     }
     char buffer[100];
     if(!fgets(buffer,sizeof(buffer),fp))
     {
-        return 0;
+        return false;
     }
     sscanf(buffer,"%8ld%30s%c%2d%2d%4d%10f",
            &emp->dni,
@@ -110,6 +110,30 @@ int leer_Archtxt_variable(const char *archivo,tEmpleado *emp)
 
     emp->apyn[30]='\0';
     fclose(fp);
-    return 1;
+    return true;
 
+}
+
+void probar_Sprintf(void)
+{
+    char cadena[80];
+    tEmpleado emp;
+    emp.dni=38531120;
+    strcpy(emp.apyn,"Neubauer Gustavo");
+    emp.categoria='A';
+    emp.fecIngreso.dia=12;
+    emp.fecIngreso.mes=11;
+    emp.fecIngreso.anio=1994;
+    emp.sueldo=199531.12;
+
+    sprintf(cadena,"%08ld %-15s %c %02d/%02d/%04d %9.2f",
+            emp.dni,
+            emp.apyn,
+            emp.categoria,
+            emp.fecIngreso.dia,
+            emp.fecIngreso.mes,
+            emp.fecIngreso.anio,
+            emp.sueldo);
+
+    printf("Cadena generada por sprintf: %s\n",cadena);
 }
