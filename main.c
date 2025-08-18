@@ -6,6 +6,7 @@ int main()
     crear_Archivo_Texto_longitud_variable(archi_texto_variable);
     crear_Archivo_Texto_longitud_fija(archi_texto_fija);
     probar_Sprintf();
+    probar_fprintf();
 
 
     return 0;

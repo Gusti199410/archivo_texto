@@ -137,3 +137,33 @@ void probar_Sprintf(void)
 
     printf("Cadena generada por sprintf: %s\n",cadena);
 }
+void probar_fprintf(void)
+{
+    FILE *fp=fopen("gustavo.txt","wt");
+    if(!fp)
+    {
+        printf("error al crear archivo");
+        exit(1);
+    }
+
+    tEmpleado emp;
+
+    emp.dni=38531120;
+    strcpy(emp.apyn,"Gustavo neubauer");
+    emp.categoria='A';
+    emp.fecIngreso.dia=12;
+    emp.fecIngreso.mes=7;
+    emp.fecIngreso.anio=2020;
+    emp.sueldo=1500000.3;
+
+    fprintf(fp,"%08ld %20s %c %02d/%02d/%04d %9.2f",emp.dni,
+                                                    emp.apyn,
+                                                    emp.categoria,
+                                                    emp.fecIngreso.dia,
+                                                    emp.fecIngreso.mes,
+                                                    emp.fecIngreso.anio,
+                                                    emp.sueldo);
+
+
+
+}
