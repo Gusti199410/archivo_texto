@@ -22,7 +22,7 @@ void crear_Archivo_Texto_longitud_variable(const char *archivo)
 
     for(int i=0;i<ce;i++)
     {
-        fprintf(fp,"%ld;%s;%c;%d/%d/%d;%.2f\n",
+        fprintf(fp,"%ld;%s;%c;%d%d%d;%.2f\n",
 
                 vectorEmpleado[i].dni,
                 vectorEmpleado[i].apyn,
@@ -156,7 +156,7 @@ void probar_fprintf(void)
     emp.fecIngreso.anio=2020;
     emp.sueldo=1500000.3;
 
-    fprintf(fp,"%08ld %20s %c %02d/%02d/%04d %9.2f",emp.dni,
+    fprintf(fp,"%08ld;%s;%c;%02d/%02d/%04d;%9.2f",emp.dni,
                                                     emp.apyn,
                                                     emp.categoria,
                                                     emp.fecIngreso.dia,
@@ -166,3 +166,91 @@ void probar_fprintf(void)
 
 }
 
+int abrir_Archivo(FILE **fp,const char *nombre_Archivo,const char *modo_apertura,int mostrar_Error)
+{
+    *fp=fopen(nombre_Archivo,modo_apertura);
+    if(!fp==NULL)
+    {
+        if(mostrar_Error==1){
+            fprintf(stderr,"Error abriendo \%s en modo \%s.",nombre_Archivo,modo_apertura);
+
+        }
+        return 0;
+    }
+    return 1;
+
+}
+
+void  trozar_Campos_longitud_fija(tEmpleado *d,char *s)
+
+{
+
+    char *aux=strchr(s,'\n');
+
+    *aux='\0';
+
+    /**                                                  SUELDO                                                   */
+
+    strrchr(aux,';');
+
+    sscanf(aux+1,&d->sueldo);
+
+    *aux='\0';
+
+    /**                                              FECHA DE INICIO                                              */
+
+    strrchr(aux,';');
+
+    sscanf(aux+1,"%d/%d/%d",&d->fecIngreso.dia,
+                 &d->fecIngreso.mes,
+                 &d->fecIngreso.anio);
+
+
+    *aux='\0';
+/**                                                   CATEGORIA                                                 */
+
+    strrchr(aux,';');
+
+    sscanf(aux+1,"%c",&d->categoria);
+
+    *aux='\0';
+
+    /**                                            APELLIDO Y NOMBRE                                         */
+
+    strrchr(aux,';');
+
+    strcpy(&d->apyn,aux+1);
+
+    *aux='\0';
+
+    /**                                                   DNI                                                  */
+
+    sscanf(aux+1,"%ld", &d->dni);
+
+}
+void leerArchivo(void)
+{
+    tEmpleado emp;
+    FILE *fp = fopen("gustavo.txt", "rt");
+    if(!fp)
+    {
+        printf("Error al abrir gus\n");
+        exit(1);
+    }
+
+    char cad[200];
+    if(fgets(cad, sizeof(cad), fp))
+    {
+        trozar_Campos_longitud_fija(&emp, cad);
+        printf("DNI: %ld\n", emp.dni);
+        printf("Nombre: %s\n", emp.apyn);
+        printf("Categoria: %c\n", emp.categoria);
+        printf("Fecha: %02d/%02d/%04d\n",
+               emp.fecIngreso.dia,
+               emp.fecIngreso.mes,
+               emp.fecIngreso.anio);
+        printf("Sueldo: %.2f\n", emp.sueldo);
+    }
+
+    fclose(fp);
+}

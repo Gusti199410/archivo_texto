@@ -7,6 +7,8 @@ int main()
     crear_Archivo_Texto_longitud_fija(archi_texto_fija);
     probar_Sprintf();
     probar_fprintf();
+    printf("\n------------------------------------------\n");
+    leerArchivo();
 
 
     return 0;
