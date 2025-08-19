@@ -386,3 +386,33 @@ void leer_Archivo_binario(const char *archivo)
     fclose(fp);
 
 }
+
+void convertir_Archivotxt_Long_variable_A_Binario(const char *archivotxt, const char *archivobin)
+{
+    FILE *ft=fopen(archivotxt,"rt");
+    if(!ft)
+    {
+        printf("Error  al abrir archivo de lectura ");
+        exit(1);
+    }
+
+    FILE *fb=fopen(archivobin,"wb");
+    if(!fb)
+    {
+        printf("Error al crear archivo binario");
+        fclose(ft);
+        exit(1);
+    }
+
+    tEmpleado emp;
+    char cadena[100];
+
+    while(fgets(cadena,sizeof(cadena),ft))
+    {
+        trozar_Campos_longitud_variable(&emp,cadena);
+        fwrite(&emp,sizeof(tEmpleado),1,fb);
+    }
+    fclose(fb);
+    fclose(ft);
+
+}
