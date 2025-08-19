@@ -9,6 +9,9 @@ int main()
     probar_fprintf();
     printf("\n------------------------------------------\n");
     leerArchivo();
+    tEmpleado emp;
+    char s[100]="38531120;Gustavo neubauer;A;12/07/2020;1500000.25\n";
+    trozar_Campos_longitud_fija(&emp,s);
 
 
     return 0;

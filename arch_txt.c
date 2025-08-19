@@ -184,48 +184,47 @@ int abrir_Archivo(FILE **fp,const char *nombre_Archivo,const char *modo_apertura
 void  trozar_Campos_longitud_fija(tEmpleado *d,char *s)
 
 {
+    char *aux=strchr(s,'\n');///busco el salto de linea
+    *aux='\0';                ///lo reemplazo por el caracter nulo
 
-    char *aux=strchr(s,'\n');
+    /** SUELDO  */
 
-    *aux='\0';
+    aux=strrchr(s,';');             /// busco el ultimo separador en archivo de texto se
+                                    ///realiza la convercion de atras para adelante
 
-    /**                                                  SUELDO                                                   */
+    sscanf(aux+1,"%f",&d->sueldo);
 
-    strrchr(aux,';');
+    *aux='\0';                      /// reemplazo el contenido de la direccion de aux por el caracter nulo "\0"
 
-    sscanf(aux+1,&d->sueldo);
+    /** FECHA  */
 
-    *aux='\0';
+    aux=strrchr(s,';');
 
-    /**                                              FECHA DE INICIO                                              */
-
-    strrchr(aux,';');
-
-    sscanf(aux+1,"%d/%d/%d",&d->fecIngreso.dia,
-                 &d->fecIngreso.mes,
-                 &d->fecIngreso.anio);
-
+    sscanf(aux+1,"%d/%d/%d",&d->fecIngreso.mes,
+                            &d->fecIngreso.mes,
+                            &d->fecIngreso.anio);
 
     *aux='\0';
-/**                                                   CATEGORIA                                                 */
 
-    strrchr(aux,';');
+    /** CATEGORIA  */
+
+    aux=strrchr(s,';');
 
     sscanf(aux+1,"%c",&d->categoria);
 
     *aux='\0';
 
-    /**                                            APELLIDO Y NOMBRE                                         */
+    /** APELLIDO Y NOMBRE **/
 
-    strrchr(aux,';');
+    aux=strrchr(s,';');
 
-    strcpy(&d->apyn,aux+1);
+    strcpy(d->apyn,aux+1);
 
     *aux='\0';
 
-    /**                                                   DNI                                                  */
+    /** DNI  */
 
-    sscanf(aux+1,"%ld", &d->dni);
+    sscanf(s,"%ld",&d->dni);
 
 }
 void leerArchivo(void)
