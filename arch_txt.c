@@ -44,8 +44,8 @@ void crear_Archivo_Texto_longitud_fija(const char *archivo)
         printf("Error al crear archivo de texto longitud fija");
         exit(-1);
     }
-     tEmpleado vectorEmpleado[]={{4444444,"Persona Cuatro", 'A',{1,10,2022},44000.4F},
-                                {2222222,"Persona Dos",    'B',{12,12,2021},22000.2F},
+     tEmpleado vectorEmpleado[]={{44444444,"Persona Cuatro", 'A',{1,10,2022},44000.4F},
+                                {22222222,"Persona Dos",    'B',{12,12,2021},22000.2F},
                                 {3333333,"Persona Tres",   'B',{1,5,2023},33000.3F},
                                 {5555555,"Persona Cinco",  'A',{1,5,2005},55000.5F},
                                 {1111111,"Persona Uno", 'C',{1,1,2001},111000.F}
@@ -53,7 +53,7 @@ void crear_Archivo_Texto_longitud_fija(const char *archivo)
     size_t ce=sizeof(vectorEmpleado)/sizeof(vectorEmpleado[0]);
     for(size_t i=0;i<ce;i++)
     {
-        fprintf(fp,"%08ld%-29s%c%02d/%02d/%04d%10f",
+        fprintf(fp,"%08ld%-35s%c%02d%02d%04d%9.2f\n",
                 vectorEmpleado[i].dni,
                 vectorEmpleado[i].apyn,
                 vectorEmpleado[i].categoria,
@@ -99,7 +99,7 @@ bool cargar_Archtxt_variable(const char *archivo,tEmpleado *emp)
     {
         return false;
     }
-    sscanf(buffer,"%8ld%30s%c%2d%2d%4d%10f",
+    sscanf(buffer,"%8ld%30s%c%2d%2d%4d%9.2f",
            &emp->dni,
            emp->apyn,
            &emp->categoria,
@@ -182,7 +182,7 @@ int abrir_Archivo(FILE **fp,const char *nombre_Archivo,const char *modo_apertura
 
 }
 
-void  trozar_Campos_longitud_fija(tEmpleado *d,char *s)
+void  trozar_Campos_longitud_variable(tEmpleado *d,char *s)
 
 {
     char *aux=strchr(s,'\n');///busco el salto de linea
@@ -228,7 +228,7 @@ void  trozar_Campos_longitud_fija(tEmpleado *d,char *s)
     sscanf(s,"%ld",&d->dni);
 
 }
-void leerArchivo(const char *archivo_variable)
+void leerArchivo_variable(const char *archivo_variable)
 {
     FILE *fp = fopen(archivo_variable, "rt");
     if(!fp)
@@ -240,7 +240,7 @@ void leerArchivo(const char *archivo_variable)
     char cad[200];
     while(fgets(cad, sizeof(cad), fp))
     {
-        trozar_Campos_longitud_fija(&emp, cad);
+        trozar_Campos_longitud_variable(&emp, cad);
         printf("DNI: %ld\n", emp.dni);
         printf("Nombre: %s\n", emp.apyn);
         printf("Categoria: %c\n", emp.categoria);
@@ -253,4 +253,79 @@ void leerArchivo(const char *archivo_variable)
     }
 
     fclose(fp);
+}
+
+void trozar_Campo_longitud_Fija(tEmpleado *d, char *s)
+{
+    char *aux=s+TAM_LINEA;///POSICIONAMOS AL FINAL DEL PUNTERO
+    *aux='\0'; ///CARGAMOS CARACTER NULO
+
+    /** SUELDO*/
+
+    aux-=TAM_SUELDO;
+
+    sscanf(aux,"%f",&d->sueldo);
+
+    *aux='\0';
+
+    /** FECHA */
+
+    aux-=TAM_FECHA;
+
+    sscanf(aux,"%2d%2d%4d",&d->fecIngreso.dia,
+                           &d->fecIngreso.mes,
+                           &d->fecIngreso.anio);
+
+    *aux='\0';
+
+    /** CATEGORIA */
+
+    aux-=TAM_CATEGORIA;
+
+    sscanf(aux,"%c",&d->categoria);
+
+    *aux='\0';
+
+    /** APELLIDO Y NOMBRE */
+
+    aux-=TAM_APYN;
+
+    strcpy(&d->apyn,aux);
+
+    *aux='\0';
+
+    /** DNI */
+
+    aux-=TAM_DNI;
+
+    sscanf(aux,"%ld",&d->dni);
+
+    *aux='\0';
+
+}
+void leerArchivo_fija(const char *archivo_fija)
+{
+    FILE *fp= fopen(archivo_fija,"rt");
+    if(!fp)
+    {
+        printf("Error al abrir archivo de lectura fija");
+        exit(1);
+    }
+    tEmpleado emp;
+    char cad[100];
+
+    while(fgets(cad,sizeof(cad),fp))
+    {
+        trozar_Campo_longitud_Fija(&emp,cad);
+         printf("DNI: %ld\n", emp.dni);
+        printf("Nombre: %s\n", emp.apyn);
+        printf("Categoria: %c\n", emp.categoria);
+        printf("Fecha: %02d/%02d/%04d\n",
+               emp.fecIngreso.dia,
+               emp.fecIngreso.mes,
+               emp.fecIngreso.anio);
+        printf("Sueldo: %.2f\n", emp.sueldo);
+        printf("\n----------------------------\n");
+    }
+
 }

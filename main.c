@@ -8,8 +8,11 @@ int main()
     probar_Sprintf();
     probar_fprintf();
     printf("\n-----------------------------------------------\n");
-    leerArchivo(archi_texto_variable);
-
+    printf("\n***     ARCHIVO DE TEXTO VARIABLE      ****\n");
+    leerArchivo_variable(archi_texto_variable);
+    printf("\n***********************************************\n");
+    printf("\n***     ARCHIVO DE TEXTO FIJA      ****\n");
+    leerArchivo_fija(archi_texto_fija);
 
     return 0;
 }
