@@ -1,6 +1,6 @@
 #include"arch_txt.h"
 #include"memoria.h"
-#define archi_bin "archivo.bin"
+
 
 
 void crear_Archivo_Texto_longitud_variable(const char *archivo)
@@ -327,5 +327,62 @@ void leerArchivo_fija(const char *archivo_fija)
         printf("Sueldo: %.2f\n", emp.sueldo);
         printf("\n----------------------------\n");
     }
+
+}
+/**                                   ARCHIVOS BINARIO                                    */
+
+void convertir_Archivotxt_Long_fija_A_Binario(const char *archivotxt, const char *archivobin)
+{
+    FILE *ft=fopen(archivotxt,"rt");
+    if(!ft)
+    {
+        printf("Error al abrir archivo de texto");
+        exit(1);
+    }
+
+    FILE *fb=fopen(archivobin,"wb");
+    if(!fb)
+    {
+        printf("Error al abrir archivo binario modo escritura");
+        fclose(ft);
+        exit(1);
+    }
+
+    tEmpleado emp;
+    char cad[100];
+    while(fgets(cad,sizeof(cad),ft))
+    {
+        trozar_Campo_longitud_Fija(&emp,cad);
+        fwrite(&emp,sizeof(tEmpleado),1,fb);
+    }
+    fclose(fb);
+    fclose(ft);
+}
+
+void leer_Archivo_binario(const char *archivo)
+{
+    FILE *fp=fopen(archivo,"rb");
+    if(!fp)
+    {
+        printf("Error al abrir el archivo");
+        exit(1);
+    }
+    tEmpleado emp;
+
+    fread(&emp,sizeof(tEmpleado),1,fp);
+    while(!feof(fp))
+    {
+      printf("DNI: %ld\n", emp.dni);
+        printf("Nombre: %s\n", emp.apyn);
+        printf("Categoria: %c\n", emp.categoria);
+        printf("Fecha: %02d/%02d/%04d\n",
+               emp.fecIngreso.dia,
+               emp.fecIngreso.mes,
+               emp.fecIngreso.anio);
+        printf("Sueldo: %.2f\n", emp.sueldo);
+        printf("\n----------------------------\n");
+        fread(&emp,sizeof(tEmpleado),1,fp);
+    }
+    fclose(fp);
 
 }
