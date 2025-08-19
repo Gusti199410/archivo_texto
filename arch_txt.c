@@ -22,7 +22,7 @@ void crear_Archivo_Texto_longitud_variable(const char *archivo)
 
     for(int i=0;i<ce;i++)
     {
-        fprintf(fp,"%ld;%s;%c;%d%d%d;%.2f\n",
+        fprintf(fp,"%ld;%s;%c;%02d/%02d/%04d;%.2f\n",
 
                 vectorEmpleado[i].dni,
                 vectorEmpleado[i].apyn,
@@ -48,12 +48,12 @@ void crear_Archivo_Texto_longitud_fija(const char *archivo)
                                 {2222222,"Persona Dos",    'B',{12,12,2021},22000.2F},
                                 {3333333,"Persona Tres",   'B',{1,5,2023},33000.3F},
                                 {5555555,"Persona Cinco",  'A',{1,5,2005},55000.5F},
-                                {1111111,"Persona Cuatro", 'C',{1,1,2001},111000.F}
+                                {1111111,"Persona Uno", 'C',{1,1,2001},111000.F}
                                 };
     size_t ce=sizeof(vectorEmpleado)/sizeof(vectorEmpleado[0]);
     for(size_t i=0;i<ce;i++)
     {
-        fprintf(fp,"%08ld%-29s%c%02d/%02d/%04d%10f\n",
+        fprintf(fp,"%08ld%-29s%c%02d/%02d/%04d%10f",
                 vectorEmpleado[i].dni,
                 vectorEmpleado[i].apyn,
                 vectorEmpleado[i].categoria,
@@ -126,7 +126,7 @@ void probar_Sprintf(void)
     emp.fecIngreso.anio=1994;
     emp.sueldo=199531.12;
 
-    sprintf(cadena,"%08ld %-15s %c %02d/%02d/%04d %9.2f",
+    sprintf(cadena,"%08ld %-15s %c %02d/%02d/%04d %9.2f\n",
             emp.dni,
             emp.apyn,
             emp.categoria,
@@ -156,13 +156,14 @@ void probar_fprintf(void)
     emp.fecIngreso.anio=2020;
     emp.sueldo=1500000.3;
 
-    fprintf(fp,"%08ld;%s;%c;%02d/%02d/%04d;%9.2f",emp.dni,
+    fprintf(fp,"%08ld;%s;%c;%02d/%02d/%04d;%9.2f\n",emp.dni,
                                                     emp.apyn,
                                                     emp.categoria,
                                                     emp.fecIngreso.dia,
                                                     emp.fecIngreso.mes,
                                                     emp.fecIngreso.anio,
                                                     emp.sueldo);
+    fclose(fp);
 
 }
 
@@ -200,7 +201,7 @@ void  trozar_Campos_longitud_fija(tEmpleado *d,char *s)
 
     aux=strrchr(s,';');
 
-    sscanf(aux+1,"%d/%d/%d",&d->fecIngreso.mes,
+    sscanf(aux+1,"%d/%d/%d",&d->fecIngreso.dia,
                             &d->fecIngreso.mes,
                             &d->fecIngreso.anio);
 
@@ -227,18 +228,17 @@ void  trozar_Campos_longitud_fija(tEmpleado *d,char *s)
     sscanf(s,"%ld",&d->dni);
 
 }
-void leerArchivo(void)
+void leerArchivo(const char *archivo_variable)
 {
-    tEmpleado emp;
-    FILE *fp = fopen("gustavo.txt", "rt");
+    FILE *fp = fopen(archivo_variable, "rt");
     if(!fp)
     {
-        printf("Error al abrir gus\n");
+        printf("Error al leer archivo\n");
         exit(1);
     }
-
+    tEmpleado emp;
     char cad[200];
-    if(fgets(cad, sizeof(cad), fp))
+    while(fgets(cad, sizeof(cad), fp))
     {
         trozar_Campos_longitud_fija(&emp, cad);
         printf("DNI: %ld\n", emp.dni);
@@ -249,6 +249,7 @@ void leerArchivo(void)
                emp.fecIngreso.mes,
                emp.fecIngreso.anio);
         printf("Sueldo: %.2f\n", emp.sueldo);
+        printf("\n-----------------------------------------------------------------\n");
     }
 
     fclose(fp);
