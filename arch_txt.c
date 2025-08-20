@@ -94,12 +94,12 @@ bool cargar_Archtxt_variable(const char *archivo,tEmpleado *emp)
         printf("Error al leer archivo");
         return false;
     }
-    char buffer[100];
-    if(!fgets(buffer,sizeof(buffer),fp))
+    char cad[100];
+    if(!fgets(cad,sizeof(cad),fp))
     {
         return false;
     }
-    sscanf(buffer,"%8ld%30s%c%2d%2d%4d%9.2f",
+    sscanf(cad,"%8ld%30s%c%2d%2d%4d%9.2f",
            &emp->dni,
            emp->apyn,
            &emp->categoria,
@@ -164,21 +164,6 @@ void probar_fprintf(void)
                                                     emp.fecIngreso.anio,
                                                     emp.sueldo);
     fclose(fp);
-
-}
-
-int abrir_Archivo(FILE **fp,const char *nombre_Archivo,const char *modo_apertura,int mostrar_Error)
-{
-    *fp=fopen(nombre_Archivo,modo_apertura);
-    if(!fp==NULL)
-    {
-        if(mostrar_Error==1){
-            fprintf(stderr,"Error abriendo \%s en modo \%s.",nombre_Archivo,modo_apertura);
-
-        }
-        return 0;
-    }
-    return 1;
 
 }
 
@@ -290,7 +275,7 @@ void trozar_Campo_longitud_Fija(tEmpleado *d, char *s)
 
     aux-=TAM_APYN;
 
-    strcpy(&d->apyn,aux);
+    strcpy(d->apyn,aux);
 
     *aux='\0';
 

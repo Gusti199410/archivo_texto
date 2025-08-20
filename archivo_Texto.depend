@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1755628380 source:c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\main.c
+1755647151 source:c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\main.c
 	"arch_txt.h"
+	"modi_bina.h"
 
-1755623647 c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\arch_txt.h
+1755645634 c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\arch_txt.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 	<string.h>
 
-1755640687 source:c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\arch_txt.c
+1755645766 source:c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\arch_txt.c
 	"arch_txt.h"
 	"memoria.h"
 
@@ -16,5 +17,11 @@
 	"memoria.h"
 
 1755528403 c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\memoria.h
+	"arch_txt.h"
+
+1755647325 source:c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\arch_bina.c
+	"modi_bina.h"
+
+1755647122 c:\users\thebestgus\desktop\repositorio\practica_string\archivo_texto\modi_bina.h
 	"arch_txt.h"
 
